@@ -36,7 +36,7 @@ function Fighter(game, fighterName, ASSET_MANAGER) {
         this.lowKickingAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Clinton/ClintonLoKick.png"), 0, 0, 270, 299, 0.06, 12, false, false);
         this.duckingAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Clinton/ClintonDuck.png"), 0, 0, 192, 294, 0.06, 12, false, false);//FIXXXX LATTE
         this.walkRightAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Clinton/ClintonWalkRight.png"), 0, 0, 262, 326, 0.06, 20, false, false);
-        // this.walkLeftAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Clinton/ClintonWalkLeft.png"), 0, 0, 144.15, 292, 0.06, 20, false, false);
+        this.walkLeftAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Clinton/ClintonWalkLeft.png"), 0, 0, 265.5, 326, 0.06, 20, false, false);
         this.highKickAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Clinton/ClintonHiKick.png"), 0, 0, 344, 322, 0.06, 12, false, false);
     }else if(fighterName === "donaldTrump"){
         //TODO add blockingWidth
@@ -50,12 +50,12 @@ function Fighter(game, fighterName, ASSET_MANAGER) {
         this.lowKickingAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpLoKick.png"), 0, 0, 429, 341, 0.06, 12, false, false);
         this.duckingAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpDuck.png"), 0, 0, 192, 294, 0.06, 12, false, false);//FIIIIXXXX LATTE
         this.walkRightAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpWalkRight.png"), 0, 0, 192, 326, 0.06, 20, false, false);
-        // this.walkLeftAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpWalkLeft.png"), 0, 0, 144.15, 292, 0.06, 20, false, false);
+        this.walkLeftAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpWalkLeft.png"), 0, 0, 189.25, 326, 0.06, 20, false, false);//might need fixed. looks okay tho.
         this.highKickAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpHiKick.png"), 0, 0, 488, 350, 0.06, 12, false, false);
     }else if(fighterName === "bernieSanders"){
         //TODO add blockingWidth
         this.widthOptions = {standingWidth: 177, jumpingWidth:285,punchingWidth: 369, lowKickingWidth: 358, duckingWidth:  192
-            , walkRightWidth: 182, walkingLeftWidth: 182, highKickingWidth: 440};
+            , walkRightWidth: 182, walkingLeftWidth: 182, highKickingWidth: 440, blockingWidth: 470};
         // this.width = this.widthOptions.standingWidth;
         //TODO add height array
         this.animation = new Animation(ASSET_MANAGER.getAsset("./img/Sanders/SandersStanding.png"), 0, 0, 177, 305, 0.099, 6, true, false);
@@ -64,8 +64,10 @@ function Fighter(game, fighterName, ASSET_MANAGER) {
         this.lowKickingAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Sanders/SandersLoKick.png"), 0, 0, 358, 316, 0.06, 12, false, false);
         this.duckingAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Sanders/SandersDuck.png"), 0, 0, 192, 294, 0.06, 12, false, false); //FIIIX LATTE
         this.walkRightAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Sanders/SandersWalkRight.png"), 0, 0, 182, 313, 0.06, 20, false, false);
-        // this.walkLeftAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Sanders/SandersWalkLeft.png"), 0, 0, 144.15, 292, 0.06, 20, false, false);
+        this.walkLeftAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Sanders/SandersWalkLeft.png"), 7, 0, 179.5, 313, 0.06, 20, false, false); //needs a little fix. 
+        //maybe redo walk left spritesheete sheet. seems a little off, but might be able to fix with width input. 
         this.highKickAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Sanders/SandersHiKick.png"), 0, 0, 440, 343, 0.06, 12, false, false);
+        this.blockingAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Sanders/SandersBlock.png"), 0, 0, 470, 335, 0.06, 12, false, false);
     }
 
     this.jumping = false;
@@ -111,6 +113,8 @@ Fighter.prototype.update = function(){
         this.walkRight = true;
     }else if(this.game.a){
         this.walkLeft = true;
+    }else if(this.game.q){
+        this.blocking = true;
     }
 
     if (this.jumping) {
@@ -180,7 +184,13 @@ Fighter.prototype.update = function(){
         }
         this.x = this.x - 1;
         this.y = this.ground;
-    }else{
+    } else if (this.blocking){
+        if(this.blockingAnimation.isDone()) {
+            console.log("high kicking is done");
+            this.blockingAnimation.elapsedTime=0;
+            this.blocking=false;
+        }
+    } else{
         // this.width = this.widthOptions.standingWidth;
         // this.height = this.heightOptions.standingHeight;
     }
@@ -216,6 +226,10 @@ Fighter.prototype.draw = function (ctx) {
         console.log("Walking Left");
         this.walkLeftAnimation.d;
         this.walkLeftAnimation.drawFrame(this.game.clockTick, ctx, this.x -5, this.y);
+    } else if(this.blocking){
+        console.log("Blocking");
+        this.blockingAnimation.d;
+        this.blockingAnimation.drawFrame(this.game.clockTick, ctx, 470, this.y);      
     } else {
         console.log("standing still");
         this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y);

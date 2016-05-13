@@ -270,7 +270,7 @@ ASSET_MANAGER.downloadAll(function () {
 
     var gameEngine = new GameEngine();
     //var unicorn = new TedCruz(gameEngine);
-    var unicorn2 = new Fighter(gameEngine,"donaldTrump", ASSET_MANAGER);
+    var unicorn2 = new Fighter(gameEngine,"bernieSanders", ASSET_MANAGER);
 
     gameEngine.addEntity(new Background(gameEngine, ASSET_MANAGER.getAsset("./img/whiteHouse.jpg")));
 
