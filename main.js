@@ -233,6 +233,8 @@ ASSET_MANAGER.queueDownload("./img/Cruz/CruzDuck.png");
 ASSET_MANAGER.queueDownload("./img/Cruz/cruzWalkRight.png");
 ASSET_MANAGER.queueDownload("./img/Cruz/CruzWalkLeft.png");
 ASSET_MANAGER.queueDownload("./img/Cruz/CruzHiKick.png");
+//need cruz block
+//ASSET_MANAGER.queueDownload("./img/Cruz/CruzBlock.png");
 
 ASSET_MANAGER.queueDownload("./img/Clinton/ClintonStanding.png");
 ASSET_MANAGER.queueDownload("./img/Clinton/ClintonJump.png");
@@ -242,6 +244,7 @@ ASSET_MANAGER.queueDownload("./img/Clinton/ClintonDuck.png");
 ASSET_MANAGER.queueDownload("./img/Clinton/ClintonWalkRight.png");
 ASSET_MANAGER.queueDownload("./img/Clinton/ClintonWalkLeft.png");
 ASSET_MANAGER.queueDownload("./img/Clinton/ClintonHiKick.png");
+ASSET_MANAGER.queueDownload("./img/Clinton/ClintonBlock.png");
 
 ASSET_MANAGER.queueDownload("./img/Trump/TrumpStanding.png");
 ASSET_MANAGER.queueDownload("./img/Trump/TrumpJump.png");
@@ -251,6 +254,7 @@ ASSET_MANAGER.queueDownload("./img/Trump/TrumpDuck.png");
 ASSET_MANAGER.queueDownload("./img/Trump/TrumpWalkRight.png");
 ASSET_MANAGER.queueDownload("./img/Trump/TrumpWalkLeft.png");
 ASSET_MANAGER.queueDownload("./img/Trump/TrumpHiKick.png");
+ASSET_MANAGER.queueDownload("./img/Trump/TrumpBlock.png");
 
 ASSET_MANAGER.queueDownload("./img/Sanders/SandersStanding.png");
 ASSET_MANAGER.queueDownload("./img/Sanders/SandersJump.png");
@@ -260,6 +264,7 @@ ASSET_MANAGER.queueDownload("./img/Sanders/SandersDuck.png");
 ASSET_MANAGER.queueDownload("./img/Sanders/SandersWalkRight.png");
 ASSET_MANAGER.queueDownload("./img/Sanders/SandersWalkLeft.png");
 ASSET_MANAGER.queueDownload("./img/Sanders/SandersHiKick.png");
+ASSET_MANAGER.queueDownload("./img/Sanders/SandersBlock.png");
 
 ASSET_MANAGER.queueDownload("./img/whiteHouse.jpg");
 
@@ -270,7 +275,7 @@ ASSET_MANAGER.downloadAll(function () {
 
     var gameEngine = new GameEngine();
     //var unicorn = new TedCruz(gameEngine);
-    var unicorn2 = new Fighter(gameEngine,"bernieSanders", ASSET_MANAGER);
+    var unicorn2 = new Fighter(gameEngine,"donaldTrump", ASSET_MANAGER);
 
     gameEngine.addEntity(new Background(gameEngine, ASSET_MANAGER.getAsset("./img/whiteHouse.jpg")));
 
