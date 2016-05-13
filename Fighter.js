@@ -22,11 +22,13 @@ function Fighter(game, fighterName, ASSET_MANAGER) {
         this.walkRightAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Cruz/cruzWalkRight.png"), 0, 0, 144, 292, 0.06, 20, false, false);
         this.walkLeftAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Cruz/CruzWalkLeft.png"), 0, 0, 144.15, 292, 0.06, 20, false, false);
         this.highKickAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Cruz/CruzHiKick.png"), 0, 0, 276, 317, 0.06, 12, false, false);
+        //this.blockingAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Cruz/CruzBlock.png"), 0, 0, 436, 321, 0.06, 12, false, false);
+        //blocking animation not yet made for cruz
 
     }else if(fighterName ==="hillaryClinton"){
         //TODO add blockingWidth
         this.widthOptions = {standingWidth: 185, jumpingWidth:288,punchingWidth: 312, lowKickingWidth: 270, duckingWidth:  192
-            , walkRightWidth: 262, walkingLeftWidth: 262, highKickingWidth: 344};
+            , walkRightWidth: 262, walkingLeftWidth: 262, highKickingWidth: 344, blockingWidth: 436};
         // this.width = this.widthOptions.standingWidth;
         //TODO add height array
 
@@ -38,10 +40,11 @@ function Fighter(game, fighterName, ASSET_MANAGER) {
         this.walkRightAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Clinton/ClintonWalkRight.png"), 0, 0, 262, 326, 0.06, 20, false, false);
         this.walkLeftAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Clinton/ClintonWalkLeft.png"), 0, 0, 265.5, 326, 0.06, 20, false, false);
         this.highKickAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Clinton/ClintonHiKick.png"), 0, 0, 344, 322, 0.06, 12, false, false);
+        this.blockingAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Clinton/ClintonBlock.png"), 0, 0, 436, 321, 0.06, 12, false, false);
     }else if(fighterName === "donaldTrump"){
         //TODO add blockingWidth
         this.widthOptions = {standingWidth: 270, jumpingWidth:242,punchingWidth: 434, lowKickingWidth: 429, duckingWidth:  192
-            , walkRightWidth: 192, walkingLeftWidth: 192, highKickingWidth: 488};
+            , walkRightWidth: 192, walkingLeftWidth: 192, highKickingWidth: 488, blockingWidth: 388};
         // this.width = this.widthOptions.standingWidth;
         //TODO add height array
         this.animation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpStanding.png"), 0, 0, 270, 325, 0.099, 6, true, false);
@@ -52,6 +55,7 @@ function Fighter(game, fighterName, ASSET_MANAGER) {
         this.walkRightAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpWalkRight.png"), 0, 0, 192, 326, 0.06, 20, false, false);
         this.walkLeftAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpWalkLeft.png"), 0, 0, 189.25, 326, 0.06, 20, false, false);//might need fixed. looks okay tho.
         this.highKickAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpHiKick.png"), 0, 0, 488, 350, 0.06, 12, false, false);
+        this.blockingAnimation = new Animation(ASSET_MANAGER.getAsset("./img/Trump/TrumpBlock.png"), 0, 0, 388, 424, 0.06, 12, false, false);
     }else if(fighterName === "bernieSanders"){
         //TODO add blockingWidth
         this.widthOptions = {standingWidth: 177, jumpingWidth:285,punchingWidth: 369, lowKickingWidth: 358, duckingWidth:  192
@@ -141,7 +145,6 @@ Fighter.prototype.update = function(){
             console.log("low punch done");
             this.punchingAnimation.elapsedTime = 0;
             this.punching = false;
-
         }
     } else if(this.lowKicking){
         //Sets the width for the bounding box
@@ -186,7 +189,7 @@ Fighter.prototype.update = function(){
         this.y = this.ground;
     } else if (this.blocking){
         if(this.blockingAnimation.isDone()) {
-            console.log("high kicking is done");
+            console.log("blocking is done");
             this.blockingAnimation.elapsedTime=0;
             this.blocking=false;
         }
@@ -229,7 +232,7 @@ Fighter.prototype.draw = function (ctx) {
     } else if(this.blocking){
         console.log("Blocking");
         this.blockingAnimation.d;
-        this.blockingAnimation.drawFrame(this.game.clockTick, ctx, 470, this.y);      
+        this.blockingAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y);      
     } else {
         console.log("standing still");
         this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y);
